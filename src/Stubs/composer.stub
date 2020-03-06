@@ -1,0 +1,14 @@
+{
+  "name": "noeticitservices/sample-{{name}}-plugin",
+  "description": "Nitseditor sample {{name}} plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nitish Kumar",
+      "email": "nitishkumar@noeticitservices.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.3"
+  }
+}

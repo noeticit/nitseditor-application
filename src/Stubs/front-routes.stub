@@ -1,0 +1,11 @@
+import Vue from 'vue';
+
+export default [
+
+    //Sample routes define to understand the declarations
+    {
+        name: 'home',
+        path: '',
+        component: Vue.component('{{name}}-home', () => import('./Pages/Home.vue')),
+    },
+];

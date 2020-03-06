@@ -1,0 +1,10 @@
+<?php
+
+namespace Nitseditor\Plugins\{{pluginName}}\Controllers;
+
+use App\Http\Controllers\Controller;
+
+class {{$controllerName}} extends Controller
+{
+
+}

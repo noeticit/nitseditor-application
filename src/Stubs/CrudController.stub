@@ -1,0 +1,70 @@
+<?php
+
+namespace Nitseditor\Plugins\{{pluginName}}\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Nitseditor\Plugins\{{pluginName}}\Models\{{model}};
+use Nitseditor\Plugins\{{pluginName}}\Resources\{{resource}};
+use Nitseditor\Plugins\{{pluginName}}\Requests\{{storeRequestName}};
+use Nitseditor\Plugins\{{pluginName}}\Requests\{{updateRequestName}};
+
+class {{$controllerName}} extends Controller
+{
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function index(Request $request)
+    {
+        return {{resource}}::collection({{model}}::search()
+            ->paginate()
+        );
+    }
+
+    /**
+     * @param {{storeRequestName}} $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store({{storeRequestName}} $request)
+    {
+        $created = {{model}}::create($request->all());
+
+        if($created)
+            return response()->json(['data' => 'Created Successfully'], 200);
+        else
+            return response()->json(['data' => 'Something went wrong'], 400);
+    }
+
+    /**
+     * @param {{model}}  ${{variable}}
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show({{model}} ${{variable}})
+    {
+        return response()->json(['data' => ${{variable}}], 200);
+    }
+
+    /**
+     * @param {{updateRequestName}} $request
+     * @param {{model}} ${{variable}}
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+     */
+    public function update({{updateRequestName}} $request, {{model}} ${{variable}})
+    {
+        ${{variable}}->update($request->all());
+        return response('Updated', Response::HTTP_ACCEPTED);
+    }
+
+    /**
+     * @param {{model}} ${{variable}}
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function destroy({{model}} ${{variable}})
+    {
+        ${{variable}}->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+}
