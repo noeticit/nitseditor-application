@@ -1,10 +1,11 @@
 <?php
 
-namespace Nitseditor\Application\ServiceProviders;
+namespace Nitseditor\Application\Providers;
 
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Nitseditor\Application\Commands\CreateCrudCommand;
 use Nitseditor\Application\Commands\CreateDatabaseCommand;
@@ -24,6 +25,8 @@ class ApplicationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
+
         //Load NitsEditor Views.
         $this->loadViewsFrom(__DIR__ . '/../Views', 'nitseditor');
     }
@@ -39,13 +42,13 @@ class ApplicationServiceProvider extends ServiceProvider
         //Register migrations and commands.
         if ($this->app->runningInConsole()) {
 
-            $this->loadMigrationsFrom(__DIR__.'/../Database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
             $this->registerCommands();
 
 //            $this->app->make(Factory::class)->load(__DIR__.'/../Database/factories');
 
-            if(File::exists(base_path().'/vendor/nitseditor/framework/src/Database/factories'))
+            if(File::exists(base_path().'/vendor/nitseditor/framework/src/Database/Factories'))
             {
 //                $this->app->singleton(Factory::class, function (){
 //                    $faker = $this->app->make(Faker::class);
@@ -53,7 +56,7 @@ class ApplicationServiceProvider extends ServiceProvider
 //                });
                 $this->app->singleton(Factory::class, function (){
                     $faker = $this->app->make(Faker::class);
-                    return Factory::construct($faker,__DIR__.'/../Database/factories');
+                    return Factory::construct($faker,__DIR__.'/../Database/Factories');
                 });
             }
         }

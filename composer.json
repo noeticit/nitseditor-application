@@ -34,7 +34,10 @@
     },
     "extra": {
         "laravel" : {
-            "providers": "Nitseditor\\Application\\ServiceProviders\\ApplicationServiceProvider"
+            "providers": [
+                "Nitseditor\\Application\\Providers\\ApplicationServiceProvider",
+                "Nitseditor\\Application\\Providers\\RouteServiceProvider"
+            ]
         }
     }
 }

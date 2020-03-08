@@ -1,6 +1,6 @@
 <?php
 
-namespace Nitseditor\Application\ServiceProviders;
+namespace Nitseditor\Application\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\File;
@@ -25,7 +25,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
         parent::boot();
     }
 
