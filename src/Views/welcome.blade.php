@@ -17,6 +17,9 @@
     window.nitseditor = @json($nitseditor);
 </script>
 
+{{--<script src="{{ asset('nits-assets/js/manifest.js') }}"></script>--}}
+{{--<script src="{{ mix('nits-assets/chunks//nits-assets/js/vendor.js') }}"></script>--}}
+{{--<script src="{{ mix('nits-assets/chunks//nits-assets/js/app.js') }}"></script>--}}
 <script src="{{ mix('nits-assets/js/app.js') }}"></script>
 </body>
 </html>

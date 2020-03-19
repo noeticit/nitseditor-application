@@ -1,5 +1,7 @@
 <?php
 
+namespace Nitseditor\Application\Database\Seeds;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
