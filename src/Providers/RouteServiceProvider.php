@@ -17,6 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'Nitseditor\Application\Http\Controllers';
 
+    protected $laravel_namespace = 'App\Http\Controllers';
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -54,6 +56,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/web.php');
+
+        Route::middleware('web')
+            ->namespace($this->laravel_namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -65,6 +71,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->laravel_namespace)
+            ->group(base_path('routes/api.php'));
+
         Route::prefix('nits-system-api')
             ->middleware('api')
             ->namespace($this->namespace)
