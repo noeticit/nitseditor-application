@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-use Nitseditor\Framework\Models\User;
-use Nitseditor\Framework\Resources\UserResource;
+use Nitseditor\Application\Models\User;
+use Nitseditor\Application\Resources\UserResource;
 
 /*
 |--------------------------------------------------------------------------
