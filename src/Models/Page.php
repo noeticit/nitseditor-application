@@ -11,6 +11,6 @@ class Page extends AbstractModel
 
     public function roles()
     {
-        return $this->belongsToMany('Nitseditor\Framework\Models\Role', 'roles_pages','page_id', 'role_id');
+        return $this->belongsToMany('Nitseditor\Application\Models\Role', 'roles_pages','page_id', 'role_id');
     }
 }

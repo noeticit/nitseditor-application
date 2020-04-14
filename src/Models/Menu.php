@@ -11,13 +11,13 @@ class Menu extends AbstractModel
 
     public function parent() {
 
-        return $this->hasOne('Nitseditor\Framework\Models\Menu', 'id', 'parent_id');
+        return $this->hasOne('Nitseditor\Application\Models\Menu', 'id', 'parent_id');
 
     }
 
     public function children() {
 
-        return $this->hasMany('Nitseditor\Framework\Models\Menu', 'parent_id', 'id');
+        return $this->hasMany('Nitseditor\Application\Models\Menu', 'parent_id', 'id');
 
     }
 

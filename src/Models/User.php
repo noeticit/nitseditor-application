@@ -41,6 +41,6 @@ class User extends Authenticatable
 
     public function roleName()
     {
-        return $this->belongsTo('Nitseditor\Framework\Models\Role', 'role_id', 'id');
+        return $this->belongsTo('Nitseditor\Application\Models\Role', 'role_id', 'id');
     }
 }
