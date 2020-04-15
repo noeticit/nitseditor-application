@@ -40,13 +40,10 @@ class CreateNitsEditorUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('name')->after('id');
-            $table->dropColumn('first_name');
-            $table->dropColumn('last_name');
-            $table->dropColumn('contact_number');
+            $table->dropForeign('users_role_id_foreign');
             $table->dropColumn('role_id');
         });
-
+        
         Schema::dropIfExists('roles');
     }
 }
