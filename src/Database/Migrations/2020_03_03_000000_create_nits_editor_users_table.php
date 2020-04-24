@@ -24,7 +24,7 @@ class CreateNitsEditorUsersTable extends Migration
             $table->dropColumn('name');
             $table->string('first_name')->after('id');
             $table->string('last_name')->nullable()->after('first_name');
-            $table->bigInteger('contact_number')->nullable()->after('email_verified_at');
+            $table->string('contact_number')->nullable()->after('email_verified_at');
             $table->bigInteger('role_id')->unsigned()->after('password');
             $table->softDeletes();
 
