@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Nitseditor\Application\Http\Requests\PermissionUpdateRequest;
 use Nitseditor\Application\Models\Page;
+use Nitseditor\Application\Models\Role;
 
 class PermissionController extends Controller
 {
@@ -58,9 +59,8 @@ class PermissionController extends Controller
             return $element;
         });
 
-        return response()->json(['pages' => $page_with_role], 200);
+        return response()->json(['data' => $page_with_role, 'roles' => $roles], 200);
     }
-
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
