@@ -19,14 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return new UserResource(User::where('id', auth()->id())->first());
 });
 
-//Auth::routes(['verify' => true]);
-
-Route::group(['middleware'=>['auth:api']],function() {
-
-    Route::prefix('permissions')->group(function() {
-
-        Route::get('/table', 'PermissionController@index');
-
-    });
-
-});
+Route::apiResource('page', 'PermissionController');
