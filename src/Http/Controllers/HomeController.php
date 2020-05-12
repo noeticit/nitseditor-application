@@ -3,6 +3,8 @@
 namespace Nitseditor\Application\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Nitseditor\Application\Models\Page;
+use Nitseditor\Application\Models\Role;
 
 class HomeController extends Controller
 {
