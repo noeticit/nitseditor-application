@@ -21,19 +21,29 @@ class PermissionController extends Controller
             return !(strpos($item['path'], "/nits-admin/") === 0);
         })->filter(function ($item) {
             return !(strpos($item['name'], "page-not-found") === 0);
+        })->map(function ($item){
+            return $item['name'];
         })->all();
 
-        $database_routes = collect(Page::get())->diff(collect($available_routes))->all();
+        $pages = Page::get()->map(function ($item) {
+            return $item['name'];
+        });
 
-        $difference = collect($available_routes)->diff($database_routes)->map(function ($item) {
-            $data['name'] = $item['name'];
+        $database_routes = collect($available_routes)->diff(collect($pages))->all();
+
+        $difference_to_be_deleted = collect($pages)->diff(collect($available_routes))->all();
+
+        Page::whereIn('name', $difference_to_be_deleted)->delete();
+
+        $difference_to_be_added = collect($database_routes)->map(function ($item) {
+            $data['name'] = $item;
             $data['created_at'] = now();
             $data['updated_at'] = now();
 
             return $data;
         });
 
-        $create_non_available_routes = Page::insert(collect($difference)->all());
+        $create_non_available_routes = Page::insert(collect($difference_to_be_added)->all());
 
         $roles = Role::all();
 
