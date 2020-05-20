@@ -3,6 +3,7 @@
 namespace Nitseditor\Application\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Nitseditor\Application\Models\Menu;
 use Nitseditor\Application\Models\Page;
 use Nitseditor\Application\Models\Role;
 
@@ -23,6 +24,7 @@ class HomeController extends Controller
             return $element;
         });
 
+        $menus = Menu::tree();
 
         $nitseditor = array(
             "app_name" => config('nitseditor.app_name'),
@@ -33,7 +35,8 @@ class HomeController extends Controller
             "timezone" => config('app.timezone'),
             "login_title" => config('nitseditor.login_title'),
             "copyright" => config('nitseditor.copyright'),
-            'page_with_role' => $page_with_role
+            'page_with_role' => $page_with_role,
+            'menus' => $menus
         );
 
         return view('nitseditor::welcome', [ 'nitseditor' => json_encode($nitseditor)]);
