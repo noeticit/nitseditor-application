@@ -54,7 +54,7 @@ class PermissionController extends Controller
             $element['name'] = $item['name'];
             $available_role = collect($item['roles'])->pluck('name')->implode(',');
             foreach($roles as $role) {
-                $element[$role['name']] = strpos($available_role, $role->name) === false ? false: true;
+                $element[$role['id']] = strpos($available_role, $role->name) === false ? false: true;
             }
             return $element;
         });
@@ -91,10 +91,21 @@ class PermissionController extends Controller
      */
     public function update(PermissionUpdateRequest $request, Page $page)
     {
-        $page->roles()->sync(collect($request->roles)->pluck('id'));
+        $checked = collect($request->roles)->filter(function ($item) {
+            return $item['checked'];
+        })->values();
+        if(collect($checked)->count())
+            $page->roles()->attach(collect($checked)->pluck('id'));
+
+        $uncheked = collect($request->roles)->filter(function ($item) {
+            return !$item['checked'];
+        })->values();
+        if(collect($uncheked)->count())
+            $page->roles()->detach(collect($uncheked)->pluck('id'));
 
         return response('Updated', Response::HTTP_ACCEPTED);
     }
+
 
     /**
      * @param Page $page
