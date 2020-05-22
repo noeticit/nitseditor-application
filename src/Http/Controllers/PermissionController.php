@@ -91,17 +91,10 @@ class PermissionController extends Controller
      */
     public function update(PermissionUpdateRequest $request, Page $page)
     {
-        $checked = collect($request->roles)->filter(function ($item) {
-            return $item['checked'];
-        })->values();
-        if(collect($checked)->count())
-            $page->roles()->attach(collect($checked)->pluck('id'));
-
-        $uncheked = collect($request->roles)->filter(function ($item) {
-            return !$item['checked'];
-        })->values();
-        if(collect($uncheked)->count())
-            $page->roles()->detach(collect($uncheked)->pluck('id'));
+        if($request->checked)
+            $page->roles()->attach($request->role_id);
+        else
+            $page->roles()->detach($request->role_id);
 
         return response('Updated', Response::HTTP_ACCEPTED);
     }

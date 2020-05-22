@@ -24,7 +24,17 @@ class PermissionUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'role_id' => 'required',
+            'checked' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'role_id.required' => 'Role ID is required',
+            'checked.required' => 'Checked true/false is required'
+        ];
+    }
+
 }
