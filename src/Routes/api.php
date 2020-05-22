@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return new UserResource(User::where('id', auth()->id())->first());
 });
 
+Route::post('login', 'UserController@login');
+
 Route::post('page-permissions', 'PermissionController@index');
 //Route::post('page-permissions-update/{page}', 'PermissionController@updatePage');
 

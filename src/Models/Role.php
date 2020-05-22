@@ -11,7 +11,7 @@ class Role extends AbstractModel
 
     public function users()
     {
-        return $this->belongsToMany('Nitseditor\Application\Models\User', 'user_roles', 'role_id', 'user_id');
+        return $this->hasMany('Nitseditor\Application\Models\User', 'role_id', 'id');
     }
 
     public function pages()
