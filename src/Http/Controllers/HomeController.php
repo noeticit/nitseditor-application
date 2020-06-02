@@ -11,16 +11,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
-
-        $page_with_role = Page::with('roles')->get()->map(function ($item) use($roles) {
+        $guest_permissions = Page::whereDoesntHave('roles')->get()->map(function ($item) {
             $element = [];
             $element['id'] = $item['id'];
             $element['name'] = $item['name'];
-            $available_role = collect($item['roles'])->pluck('name')->implode(',');
-            foreach($roles as $role) {
-                $element[$role['name']] = strpos($available_role, $role->name) === false ? false: true;
-            }
+            $element['path'] = $item['path'];
+
             return $element;
         });
 
@@ -35,7 +31,7 @@ class HomeController extends Controller
             "timezone" => config('app.timezone'),
             "login_title" => config('nitseditor.login_title'),
             "copyright" => config('nitseditor.copyright'),
-            'page_with_role' => $page_with_role,
+            'guest_permissions' => $guest_permissions,
             'menus' => $menus
         );
 
