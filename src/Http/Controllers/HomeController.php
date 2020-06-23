@@ -37,4 +37,9 @@ class HomeController extends Controller
 
         return view('nitseditor::welcome', [ 'nitseditor' => json_encode($nitseditor)]);
     }
+
+    public function upload()
+    {
+        return response()->json(['link' => nits_binary_file_s3_upload()], 200);
+    }
 }

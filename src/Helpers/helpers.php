@@ -105,3 +105,25 @@ if(! function_exists('document_s3_upload')) {
             return env('AWS_URL') . '/' . env('AWS_BUCKET') . '/' . env('APP_NAME').'/'.$dir.'/'.$fileName;
     }
 }
+
+if(! function_exists('nits_binary_file_s3_upload')) {
+
+    function nits_binary_file_s3_upload()
+    {
+
+        if (request()->hasFile('file')) {
+            $file = request()->file('file');
+            $name = $file->getClientOriginalName();
+            $filePath = time().'/'.Str::random(10).'/files/' . $name;
+
+            Storage::disk('s3')->put(env('APP_NAME').'/'.$filePath, file_get_contents($file), 'public'); // only  for decoded file.
+
+            if (env('AWS_CLOUD_FRONT'))
+                return env('AWS_CLOUD_FRONT') . '/'. env('APP_NAME').'/'.$filePath;
+            else
+                return env('AWS_URL') . '/' . env('AWS_BUCKET') . '/' . env('APP_NAME').'/'.$filePath;
+        }
+        else
+            return null;
+    }
+}
