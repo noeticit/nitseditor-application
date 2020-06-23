@@ -38,7 +38,7 @@ class UserController extends Controller
             $user = User::where('email', $request->username)->first();
 
             $pages = Page::whereHas('roles', function ($q) use($user) {
-                $q->where('roles.id', $user->role_id);
+                $q->whereIn('roles.id', [$user->role_id, '1']); //Guest ID to be set...
             })->get();
 
             return response()->json([
