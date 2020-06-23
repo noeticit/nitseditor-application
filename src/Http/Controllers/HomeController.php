@@ -39,23 +39,23 @@ class HomeController extends Controller
     }
 
 
-    public function uploadFile(Request $request)
-    {
-//        $data = $request->file_name;
-//        $data = $request->link;
-//        $created = File::create($data);
-
-        $created = collect($request->data)->map(function ($item) {
-            $ele = [];
-            $ele['file_name'] = $item['file_name'];
-            $data['file_link'] = $item['file_link'] ? document_s3_upload('upload/' . $item['name'] . '/file_link', $item['file_link'], $item['file_name']) : null;
-            return File::create($ele);
-        });
-        if ($created)
-            return response()->json(['data' => 'Created Successfully'], 200);
-        else
-            return response()->json(['data' => 'Something went wrong'], 400);
-    }
+//    public function uploadFile(Request $request)
+//    {
+////        $data = $request->file_name;
+////        $data = $request->link;
+////        $created = File::create($data);
+//
+//        $created = collect($request->data)->map(function ($item) {
+//            $ele = [];
+//            $ele['file_name'] = $item['file_name'];
+//            $data['file_link'] = $item['file_link'] ? document_s3_upload('upload/' . $item['name'] . '/file_link', $item['file_link'], $item['file_name']) : null;
+//            return File::create($ele);
+//        });
+//        if ($created)
+//            return response()->json(['data' => 'Created Successfully'], 200);
+//        else
+//            return response()->json(['data' => 'Something went wrong'], 400);
+//    }
 
     public function upload()
     {
