@@ -95,7 +95,7 @@ if(! function_exists('document_s3_upload')) {
             $extension = $format[1];
         }
 
-        $fileName = $file_name ? $file_name : str_random() . '.' . $extension;
+        $fileName = $file_details['name'] ? Str::random().$file_details['name'] : Str::random() . '.' . $extension;
 
         $path = Storage::disk('s3')->put(env('APP_NAME').'/'.$dir.'/'.$fileName, $decoded, 'public'); // only  for decoded file.
 
@@ -103,5 +103,25 @@ if(! function_exists('document_s3_upload')) {
             return env('AWS_CLOUD_FRONT') . '/'. env('APP_NAME').'/'.$dir.'/'.$fileName;
         else
             return env('AWS_URL') . '/' . env('AWS_BUCKET') . '/' . env('APP_NAME').'/'.$dir.'/'.$fileName;
+    }
+
+    function document_local_upload($dir, $file_details)
+    {
+        $pos = strpos($file_details['base64'], ';');
+        $type = explode(':', substr($file_details['base64'], 0, $pos))[1];
+        $format = explode('/', $type);
+
+        $exploded = explode(',', $file_details['base64']);
+
+        $decoded = base64_decode($exploded[1]);
+
+        if (Str::contains($exploded[0], $format[1])) {
+            $extension = $format[1];
+        }
+
+        $fileName = $file_details['name'] ? Str::random().$file_details['name'] : Str::random() . '.' . $extension;
+
+        if(Storage::disk('local')->put($dir.'/'.$fileName, $decoded, 'public')) // only  for decoded file.
+            return config('filesystems.disks.local.root').'/'.$dir.'/'.$fileName;
     }
 }
