@@ -25,3 +25,7 @@ Route::post('page-permissions', 'PermissionController@index');
 //Route::post('page-permissions-update/{page}', 'PermissionController@updatePage');
 
 Route::apiResource('page', 'PermissionController');
+
+//Route::post('upload_file', 'HomeController@uploadFile');
+
+Route::post('upload-files', 'HomeController@upload');
