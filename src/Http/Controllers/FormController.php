@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Nitseditor\Application\Http\Requests\FormCreateRequest;
 use Nitseditor\Application\Http\Requests\FormUpdateRequest;
 use Nitseditor\Application\Models\Form;
+use Nitseditor\Application\Resources\FormResource;
 
 class FormController extends Controller
 {
@@ -18,7 +19,11 @@ class FormController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(['data' => []], 200);
+        return FormResource::collection(
+            Form::when( $request->search , function($q) use( $request){
+                $q->where('form_title' ,'like','%'.$request->search.'%');
+            })->paginate(10)
+        );
     }
 
     /**
