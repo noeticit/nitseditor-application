@@ -81,8 +81,9 @@ if(!function_exists('nits_config')) {
 
 if(! function_exists('document_s3_upload')) {
 
-    function document_s3_upload($dir, $data, $file_name)
+    function document_s3_upload($dir, $data, $file_details)
     {
+//        dd($file_details);
         $pos = strpos($data, ';');
         $type = explode(':', substr($data, 0, $pos))[1];
         $format = explode('/', $type);
@@ -95,7 +96,8 @@ if(! function_exists('document_s3_upload')) {
             $extension = $format[1];
         }
 
-        $fileName = $file_details['name'] ? Str::random().$file_details['name'] : Str::random() . '.' . $extension;
+        $fileName = $file_details ? Str::random().$file_details : Str::random() . '.' . $extension;
+//        $fileName = $file_details['name'] ? Str::random().$file_details['name'] : Str::random() . '.' . $extension;
 
         $path = Storage::disk('s3')->put(env('APP_NAME').'/'.$dir.'/'.$fileName, $decoded, 'public'); // only  for decoded file.
 
