@@ -1,0 +1,13 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Nitseditor\Application\Models\AbstractModel;
+
+class {{modelName}} extends AbstractModel {
+
+    use SoftDeletes;
+
+    protected $guarded= [];
+
+}

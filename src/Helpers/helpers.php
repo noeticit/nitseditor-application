@@ -30,6 +30,18 @@ if (! function_exists('get_plugin_stub')) {
     }
 }
 
+if (! function_exists('get_nitseditor_stub')) {
+    /**
+     * Get the stubs
+     * @param $type
+     * @return bool|string
+     */
+    function get_nitseditor_stub($type)
+    {
+        return file_get_contents(base_path("vendor/nitseditor/application/src/Stubs/$type.stub"));
+    }
+}
+
 if (! function_exists('nits_get_plugin_config')) {
 
     /**
@@ -81,9 +93,8 @@ if(!function_exists('nits_config')) {
 
 if(! function_exists('document_s3_upload')) {
 
-    function document_s3_upload($dir, $data, $file_details)
+    function document_s3_upload($dir, $data, $file_name)
     {
-//        dd($file_details);
         $pos = strpos($data, ';');
         $type = explode(':', substr($data, 0, $pos))[1];
         $format = explode('/', $type);
@@ -96,8 +107,7 @@ if(! function_exists('document_s3_upload')) {
             $extension = $format[1];
         }
 
-        $fileName = $file_details ? Str::random().$file_details : Str::random() . '.' . $extension;
-//        $fileName = $file_details['name'] ? Str::random().$file_details['name'] : Str::random() . '.' . $extension;
+        $fileName = $file_details['name'] ? Str::random().$file_details['name'] : Str::random() . '.' . $extension;
 
         $path = Storage::disk('s3')->put(env('APP_NAME').'/'.$dir.'/'.$fileName, $decoded, 'public'); // only  for decoded file.
 

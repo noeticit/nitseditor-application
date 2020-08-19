@@ -3,7 +3,7 @@ namespace Nitseditor\Application\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FormResource extends JsonResource
+class ModelResource extends JsonResource
 {
 
     /**
@@ -16,9 +16,7 @@ class FormResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->form_title,
-            'form_data' => $this->form_data,
-
+            'name' => $this->name,
         ];
     }
 }
