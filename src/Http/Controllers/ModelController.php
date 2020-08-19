@@ -2,6 +2,7 @@
 
 namespace Nitseditor\Application\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -74,7 +75,13 @@ class ModelController extends Controller
 
         $model->update($request->all());
 
-        return response('Updated', Response::HTTP_ACCEPTED);
+
+        if($model)
+            return response()->json(['data' => 'Updated Successfully'], 202);
+        else
+            return response()->json(['data' => 'Something went wrong'], 400);
+
+//        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
 
