@@ -35,27 +35,18 @@ class HomeController extends Controller
             'menus' => $menus
         );
 
-        return view('nitseditor::welcome', ['nitseditor' => json_encode($nitseditor)]);
+        return view('nitseditor::welcome', [
+            'nitseditor' => json_encode($nitseditor),
+            'title' => config('nitseditor.title'),
+            'description' => config('nitseditor.description'),
+            'favicon' => config('nitseditor.favicon'),
+            'favicon_image_type' => config('nitseditor.favicon_image_type'),
+            'favicon_sizes' => collect(config('nitseditor.favicon_sizes'))->join(' '),
+            'keywords' => config('nitseditor.keywords'),
+            'apple-touch-icon' => config('nitseditor.apple-touch-icon')
+        ]);
     }
 
-
-//    public function uploadFile(Request $request)
-//    {
-////        $data = $request->file_name;
-////        $data = $request->link;
-////        $created = File::create($data);
-//
-//        $created = collect($request->data)->map(function ($item) {
-//            $ele = [];
-//            $ele['file_name'] = $item['file_name'];
-//            $data['file_link'] = $item['file_link'] ? document_s3_upload('upload/' . $item['name'] . '/file_link', $item['file_link'], $item['file_name']) : null;
-//            return File::create($ele);
-//        });
-//        if ($created)
-//            return response()->json(['data' => 'Created Successfully'], 200);
-//        else
-//            return response()->json(['data' => 'Something went wrong'], 400);
-//    }
 
     public function upload()
     {
