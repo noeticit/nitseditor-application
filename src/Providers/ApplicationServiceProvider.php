@@ -26,9 +26,6 @@ class ApplicationServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-
-        //Load NitsEditor Views.
-        $this->loadViewsFrom(__DIR__ . '/../Views', 'nitseditor');
     }
 
     /**
@@ -77,7 +74,7 @@ class ApplicationServiceProvider extends ServiceProvider
             if($namespace)
             {
                 $this->loadViewsFrom(base_path().'/plugins/'. $namespace .'/Views', $namespace);
-                
+
                 if ($this->app->runningInConsole()) {
                     if(File::exists(base_path().'/plugins/'. $namespace .'/Databases/Migrations'))
                         $this->loadMigrationsFrom(base_path().'/plugins/'. $namespace .'/Databases/Migrations');
